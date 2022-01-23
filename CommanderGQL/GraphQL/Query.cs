@@ -11,12 +11,5 @@ namespace CommanderGQL.GraphQL
         {
             return context.StarShipFlights;
         }
-
-        [UseDbContext(typeof(AppDbContext))]
-        [UseProjection]
-        public IQueryable<Passenger> GetPassengers([ScopedService] AppDbContext context)
-        {
-            return context.Passengers;
-        }
     }
 }

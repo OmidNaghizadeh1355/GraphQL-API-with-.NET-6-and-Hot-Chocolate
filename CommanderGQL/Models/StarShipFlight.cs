@@ -11,5 +11,7 @@ namespace CommanderGQL.Models
         public string FlightNo { get; set; }
 
         public ICollection<Passenger> passengers { get; set; } = new List<Passenger>();
+
+        public ICollection<Crew> crews { get; set; } = new List<Crew>();
     }
 }

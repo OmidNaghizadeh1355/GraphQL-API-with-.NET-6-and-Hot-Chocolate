@@ -3,7 +3,7 @@ using CommanderGQL.Enums;
 
 namespace CommanderGQL.Models
 {
-    public class Passenger
+    public class People
     {
         [Key]
         public int Id { get; set; }
@@ -11,12 +11,8 @@ namespace CommanderGQL.Models
         [Required]
         public string name { get; set; }
 
-        [Required]
-        public Gender gender { get; set; }
+        public ICollection<Passenger> passengers { get; set; } = new List<Passenger>();
 
-        [Required]
-        public int StarShipFlightId { get; set; }
-
-        public StarShipFlight starShipFlight { get; set; }
+        public ICollection<Crew> crews { get; set; } = new List<Crew>();
     }
 }
