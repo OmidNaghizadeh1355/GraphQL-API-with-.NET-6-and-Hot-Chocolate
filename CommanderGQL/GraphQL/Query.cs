@@ -5,7 +5,8 @@ namespace CommanderGQL.GraphQL
 {
     public class Query
     {
-        public IQueryable<StarShipFlight> GetStarShipFlight([Service] AppDbContext context)
+        [UseDbContext(typeof(AppDbContext))]
+        public IQueryable<StarShipFlight> GetStarShipFlight([ScopedService] AppDbContext context)
         {
             return context.StarShipFlights;
         }

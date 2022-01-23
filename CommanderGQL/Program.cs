@@ -11,7 +11,7 @@ IHostEnvironment hostEnvironment = builder.Environment;
 #region Configure Services
 builder.Services.AddRazorPages();
 builder.Services.AddControllers();
-builder.Services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(
+builder.Services.AddPooledDbContextFactory<AppDbContext>(opt => opt.UseSqlServer(
     configuration.GetConnectionString("CommandConStr")
 ));
 builder.Services
