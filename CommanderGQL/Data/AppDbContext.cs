@@ -64,6 +64,12 @@ namespace CommanderGQL.Data
                 .HasOne(p => p.People!)
                 .WithMany(p => p.crews)
                 .HasForeignKey(p => p.PeopleId);
+
+            modelBuilder.Entity<Crew>()
+                .HasIndex(p => new {p.PeopleId , p.StarShipFlightId}).IsUnique();
+
+            modelBuilder.Entity<Passenger>()
+                .HasIndex(p => new {p.PeopleId , p.StarShipFlightId}).IsUnique();
         }
     }
 }
