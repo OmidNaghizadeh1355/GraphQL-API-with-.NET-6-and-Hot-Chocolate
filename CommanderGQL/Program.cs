@@ -2,6 +2,7 @@ using CommanderGQL.Data;
 using CommanderGQL.GraphQL;
 using GraphQL.Server.Ui.Voyager;
 using Microsoft.EntityFrameworkCore;
+using StarWarAPI.Core;
 
 var builder = WebApplication.CreateBuilder(args);
 IConfiguration configuration = builder.Configuration;
@@ -9,6 +10,7 @@ IWebHostEnvironment webHostEnvironment = builder.Environment;
 IHostEnvironment hostEnvironment = builder.Environment;
 
 #region Configure Services
+builder.Services.AddScoped<IStarWarApiService, StarWarApiService>();
 builder.Services.AddRazorPages();
 builder.Services.AddControllers();
 builder.Services.AddPooledDbContextFactory<AppDbContext>(opt => opt.UseSqlServer(
