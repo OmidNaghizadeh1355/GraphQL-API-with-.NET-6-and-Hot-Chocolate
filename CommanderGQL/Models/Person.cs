@@ -1,15 +1,16 @@
 using System.ComponentModel.DataAnnotations;
+using CommanderGQL.Enums;
 
 namespace CommanderGQL.Models
 {
-    [GraphQLDescription("Star Ship Flight is combination of passengers and crews!")]
-    public class StarShipFlight
+    [GraphQLDescription("Fetch perssons from people controller")]
+    public class Persson
     {
         [Key]
         public int Id { get; set; }
 
         [Required]
-        public string FlightNo { get; set; }
+        public string Name { get; set; }
 
         public ICollection<Passenger> Passengers { get; set; } = new List<Passenger>();
 

@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CommanderGQL.Models
 {
+    [GraphQLDescription("A Passenger belongs to a star ship flight and has many persons as passengers, The MAX No. of the passengers has to follow the star flight specification.")]
     public class Passenger
     {
         [Key]
@@ -13,8 +14,8 @@ namespace CommanderGQL.Models
         public StarShipFlight StarShipFlight { get; set; }
 
         [Required]
-        public int PeopleId { get; set; }
+        public int PerssonId { get; set; }
 
-        public People People { get; set; }
+        public Persson Persson { get; set; }
     }
 }

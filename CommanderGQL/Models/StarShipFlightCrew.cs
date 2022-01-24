@@ -3,6 +3,7 @@ using CommanderGQL.Enums;
 
 namespace CommanderGQL.Models
 {
+    [GraphQLDescription("A Crew belongs to a star ship flight and has many persons as crew member, No. of the crew has to be equal to the star flight specification.")]
     public class Crew
     {
         [Key]
@@ -14,8 +15,8 @@ namespace CommanderGQL.Models
         public StarShipFlight StarShipFlight { get; set; }
 
         [Required]
-        public int PeopleId { get; set; }
+        public int PerssonId { get; set; }
 
-        public People People { get; set; }
+        public Persson Persson { get; set; }
     }
 }

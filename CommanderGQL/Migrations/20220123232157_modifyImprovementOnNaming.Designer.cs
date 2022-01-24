@@ -3,6 +3,7 @@ using CommanderGQL.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CommanderGQL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220123232157_modifyImprovementOnNaming")]
+    partial class modifyImprovementOnNaming
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,7 +31,7 @@ namespace CommanderGQL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("PerssonId")
+                    b.Property<int>("PeopleId")
                         .HasColumnType("int");
 
                     b.Property<int>("StarShipFlightId")
@@ -39,7 +41,7 @@ namespace CommanderGQL.Migrations
 
                     b.HasIndex("StarShipFlightId");
 
-                    b.HasIndex("PerssonId", "StarShipFlightId")
+                    b.HasIndex("PeopleId", "StarShipFlightId")
                         .IsUnique();
 
                     b.ToTable("Crews");
@@ -53,7 +55,7 @@ namespace CommanderGQL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("PerssonId")
+                    b.Property<int>("PeopleId")
                         .HasColumnType("int");
 
                     b.Property<int>("StarShipFlightId")
@@ -63,13 +65,13 @@ namespace CommanderGQL.Migrations
 
                     b.HasIndex("StarShipFlightId");
 
-                    b.HasIndex("PerssonId", "StarShipFlightId")
+                    b.HasIndex("PeopleId", "StarShipFlightId")
                         .IsUnique();
 
                     b.ToTable("Passengers");
                 });
 
-            modelBuilder.Entity("CommanderGQL.Models.Persson", b =>
+            modelBuilder.Entity("CommanderGQL.Models.Person", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -83,7 +85,7 @@ namespace CommanderGQL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Persson");
+                    b.ToTable("Person");
                 });
 
             modelBuilder.Entity("CommanderGQL.Models.StarShipFlight", b =>
@@ -105,9 +107,9 @@ namespace CommanderGQL.Migrations
 
             modelBuilder.Entity("CommanderGQL.Models.Crew", b =>
                 {
-                    b.HasOne("CommanderGQL.Models.Persson", "Persson")
+                    b.HasOne("CommanderGQL.Models.Person", "Person")
                         .WithMany("crews")
-                        .HasForeignKey("PerssonId")
+                        .HasForeignKey("PeopleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -117,16 +119,16 @@ namespace CommanderGQL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Persson");
+                    b.Navigation("Person");
 
                     b.Navigation("StarShipFlight");
                 });
 
             modelBuilder.Entity("CommanderGQL.Models.Passenger", b =>
                 {
-                    b.HasOne("CommanderGQL.Models.Persson", "Persson")
+                    b.HasOne("CommanderGQL.Models.Person", "Person")
                         .WithMany("passengers")
-                        .HasForeignKey("PerssonId")
+                        .HasForeignKey("PeopleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -136,12 +138,12 @@ namespace CommanderGQL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Persson");
+                    b.Navigation("Person");
 
                     b.Navigation("StarShipFlight");
                 });
 
-            modelBuilder.Entity("CommanderGQL.Models.Persson", b =>
+            modelBuilder.Entity("CommanderGQL.Models.Person", b =>
                 {
                     b.Navigation("crews");
 
