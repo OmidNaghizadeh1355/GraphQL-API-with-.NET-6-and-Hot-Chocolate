@@ -7,6 +7,13 @@ namespace CommanderGQL.GraphQL
 {
     public class Query
     {
+        private readonly IStarWarApiService _StarWarApiService;
+
+        public Query(IStarWarApiService StarWarApiService)
+        {
+            _StarWarApiService = StarWarApiService;
+        }
+
         [UseDbContext(typeof(AppDbContext))]
         [UseProjection]
         public IQueryable<StarShipFlight> GetStarShipFlight([ScopedService] AppDbContext context)
@@ -14,10 +21,9 @@ namespace CommanderGQL.GraphQL
             return context.StarShipFlights;
         }
 
-        [UseProjection]
-        public IEnumerable<People> GetPersons([ScopedService] StarWarApiService context)
+        public IEnumerable<People> GetPersons()
         {
-            return context.GetAllPersons();
+            return _StarWarApiService.GetAllPersons();
         }
     }
 }

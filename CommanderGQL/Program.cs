@@ -10,7 +10,7 @@ IWebHostEnvironment webHostEnvironment = builder.Environment;
 IHostEnvironment hostEnvironment = builder.Environment;
 
 #region Configure Services
-builder.Services.AddScoped<IStarWarApiService, StarWarApiService>();
+builder.Services.AddTransient<IStarWarApiService, StarWarApiService>();
 builder.Services.AddRazorPages();
 builder.Services.AddControllers();
 builder.Services.AddPooledDbContextFactory<AppDbContext>(opt => opt.UseSqlServer(
