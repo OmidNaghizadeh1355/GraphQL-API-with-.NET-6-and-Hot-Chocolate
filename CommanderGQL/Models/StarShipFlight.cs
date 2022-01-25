@@ -9,7 +9,7 @@ namespace CommanderGQL.Models
         public int Id { get; set; }
 
         [Required]
-        public string FlightNo { get; set; }
+        public int starshipId { get; set; }
 
         public ICollection<Passenger> Passengers { get; set; } = new List<Passenger>();
 

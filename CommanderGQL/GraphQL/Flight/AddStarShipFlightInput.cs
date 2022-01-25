@@ -2,7 +2,7 @@
 
 namespace CommanderGQL.GraphQL.Flight
 {
-    public record AddStarShipFlightInput(string FlightNo, 
+    public record AddStarShipFlightInput(int Id, 
         ICollection<AddPassengerInput>   Passengers,
         ICollection<AddCrewInput> Crew);
 

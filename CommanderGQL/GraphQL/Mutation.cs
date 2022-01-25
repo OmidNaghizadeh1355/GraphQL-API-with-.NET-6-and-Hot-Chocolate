@@ -27,7 +27,7 @@ namespace CommanderGQL.GraphQL
             {
                 var StarShipFlight = new StarShipFlight
                 {
-                    FlightNo = input.FlightNo
+                    starshipId = input.Id
                 };
 
                 var starWarPersons = _StarWarApiService.GetAllPersons();

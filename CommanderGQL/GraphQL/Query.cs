@@ -25,5 +25,10 @@ namespace CommanderGQL.GraphQL
         {
             return _StarWarApiService.GetAllPersons();
         }
+
+        public IEnumerable<Starship> GetStarships()
+        {
+            return _StarWarApiService.GetAllStarships();
+        }
     }
 }
