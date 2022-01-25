@@ -1,5 +1,6 @@
 using CommanderGQL.Data;
 using CommanderGQL.GraphQL;
+using CommanderGQL.GraphQL.Flight;
 using GraphQL.Server.Ui.Voyager;
 using Microsoft.EntityFrameworkCore;
 using StarWarAPI.Core;
@@ -19,7 +20,8 @@ builder.Services.AddPooledDbContextFactory<AppDbContext>(opt => opt.UseSqlServer
 builder.Services
     .AddGraphQLServer()
     .AddQueryType<Query>()
-    .AddProjections();
+    .AddProjections()
+    .AddMutationType<Mutation>();
 
 
 #endregion

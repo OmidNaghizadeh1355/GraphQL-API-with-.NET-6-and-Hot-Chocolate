@@ -11,7 +11,6 @@ namespace CommanderGQL.Data
         }
 
         public DbSet<StarShipFlight> StarShipFlights { get; set;}
-        public DbSet<Persson> Persson { get; set;}
         public DbSet<Passenger> Passengers { get; set;}
         public DbSet<Crew> Crews { get; set;}
 
@@ -41,35 +40,11 @@ namespace CommanderGQL.Data
                 .WithMany(p => p.Crews)
                 .HasForeignKey(p => p.StarShipFlightId);
 
-            modelBuilder
-                .Entity<Persson>()
-                .HasMany(p => p.Passengers)
-                .WithOne(p => p.Persson!)
-                .HasForeignKey(p => p.PerssonId);
-
-            modelBuilder
-                .Entity<Passenger>()
-                .HasOne(p => p.Persson!)
-                .WithMany(p => p.Passengers)
-                .HasForeignKey(p => p.PerssonId);
-
-            modelBuilder
-                .Entity<Persson>()
-                .HasMany(p => p.Crews)
-                .WithOne(p => p.Persson!)
-                .HasForeignKey(p => p.PerssonId);
-
-            modelBuilder
-                .Entity<Crew>()
-                .HasOne(p => p.Persson!)
-                .WithMany(p => p.Crews)
-                .HasForeignKey(p => p.PerssonId);
-
             modelBuilder.Entity<Crew>()
-                .HasIndex(p => new {p.PerssonId , p.StarShipFlightId}).IsUnique();
+                .HasIndex(p => new {p.Persson , p.StarShipFlightId}).IsUnique();
 
             modelBuilder.Entity<Passenger>()
-                .HasIndex(p => new {p.PerssonId , p.StarShipFlightId}).IsUnique();
+                .HasIndex(p => new {p.Persson , p.StarShipFlightId}).IsUnique();
         }
     }
 }

@@ -14,9 +14,6 @@ namespace CommanderGQL.Models
 
         public StarShipFlight StarShipFlight { get; set; }
 
-        [Required]
-        public int PerssonId { get; set; }
-
-        public Persson Persson { get; set; }
+        public string Persson { get; set; }
     }
 }
