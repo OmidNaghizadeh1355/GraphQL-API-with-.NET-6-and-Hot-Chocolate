@@ -15,18 +15,23 @@ namespace CommanderGQL.GraphQL
         }
 
         [UseDbContext(typeof(AppDbContext))]
-        [UseProjection]
+        [UseFiltering]
+        [UseSorting]
         public IQueryable<StarShipFlight> GetStarShipFlight([ScopedService] AppDbContext context)
         {
             return context.StarShipFlights;
         }
 
-        public IEnumerable<People> GetPersons()
+        [UseFiltering]
+        [UseSorting]
+        public IQueryable<People> GetPersons()
         {
             return _StarWarApiService.GetAllPersons();
         }
 
-        public IEnumerable<Starship> GetStarships()
+        [UseFiltering]
+        [UseSorting]
+        public IQueryable<Starship> GetStarships()
         {
             return _StarWarApiService.GetAllStarships();
         }

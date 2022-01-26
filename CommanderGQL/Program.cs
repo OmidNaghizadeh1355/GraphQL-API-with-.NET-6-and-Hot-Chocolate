@@ -20,8 +20,12 @@ builder.Services.AddPooledDbContextFactory<AppDbContext>(opt => opt.UseSqlServer
 builder.Services
     .AddGraphQLServer()
     .AddQueryType<Query>()
+    .AddType<StarShipFlightType>()
+    .AddType<StarShipType>()
     .AddProjections()
-    .AddMutationType<Mutation>();
+    .AddMutationType<Mutation>()
+    .AddFiltering()
+    .AddSorting();
 
 
 #endregion

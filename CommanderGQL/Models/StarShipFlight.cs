@@ -1,15 +1,26 @@
+using StarWarAPI.Entities;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CommanderGQL.Models
 {
-    [GraphQLDescription("Star Ship Flight is combination of passengers and crews!")]
+    
     public class StarShipFlight
     {
         [Key]
         public int Id { get; set; }
 
         [Required]
-        public int starshipId { get; set; }
+        public int StarshipId { get; set; }
+
+        [NotMapped]
+        public Starship Starship { get; set; }
+
+        [NotMapped]
+        public int Crew { get; set; }
+
+        [NotMapped]
+        public int MaxPassengers { get; set; }
 
         public ICollection<Passenger> Passengers { get; set; } = new List<Passenger>();
 
