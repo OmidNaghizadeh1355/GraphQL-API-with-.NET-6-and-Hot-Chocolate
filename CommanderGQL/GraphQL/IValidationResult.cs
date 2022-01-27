@@ -7,5 +7,8 @@ namespace CommanderGQL.GraphQL
         IEnumerable<string> Messages { get; }
 
         void AddErrorMessage(string errorMessage);
+
+        void EmptyErrorMessage();
+        
     }
 }

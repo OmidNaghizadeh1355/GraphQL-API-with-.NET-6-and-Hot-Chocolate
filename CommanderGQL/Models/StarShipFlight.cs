@@ -17,10 +17,7 @@ namespace CommanderGQL.Models
         public Starship Starship { get; set; }
 
         [NotMapped]
-        public int Crew { get; set; }
-
-        [NotMapped]
-        public int MaxPassengers { get; set; }
+        public Boolean IsValid { get; set; }
 
         public ICollection<Passenger> Passengers { get; set; } = new List<Passenger>();
 

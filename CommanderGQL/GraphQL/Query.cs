@@ -24,7 +24,7 @@ namespace CommanderGQL.GraphQL
 
         [UseFiltering]
         [UseSorting]
-        public IQueryable<People> GetPersons()
+        public IEnumerable<People> GetPersons()
         {
             return _StarWarApiService.GetAllPersons();
         }

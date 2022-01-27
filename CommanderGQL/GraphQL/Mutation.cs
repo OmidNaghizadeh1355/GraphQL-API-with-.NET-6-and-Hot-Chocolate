@@ -31,23 +31,23 @@ namespace CommanderGQL.GraphQL
                 };
 
                 var starWarPersons = _StarWarApiService.GetAllPersons();
-
+                _ValidationResult.IsValid = true;
+                _ValidationResult.EmptyErrorMessage();
                 ValidatingPassengers(input, starWarPersons);
                 ValidatingTheCrew(input, starWarPersons);
 
-                context.StarShipFlights.Add(StarShipFlight);
-
-                await context.SaveChangesAsync();
-                await SavePassengers(input, context, StarShipFlight);
-                await SaveTheCrew(input, context, StarShipFlight);
-
                 if (!_ValidationResult.IsValid)
                 {
-                    transaction.Rollback();
                     return new AddStarShipFlightPayLoad(StarShipFlight, _ValidationResult.Messages);
                 }
                 else
                 {
+                    context.StarShipFlights.Add(StarShipFlight);
+
+                    await context.SaveChangesAsync();
+                    await SavePassengers(input, context, StarShipFlight);
+                    await SaveTheCrew(input, context, StarShipFlight);
+
                     transaction.Commit();
                     _ValidationResult.AddErrorMessage($"OK");
                     _ValidationResult.IsValid = true;
@@ -58,7 +58,7 @@ namespace CommanderGQL.GraphQL
             {
                 transaction.Rollback();
                 _ValidationResult.AddErrorMessage(ex.Message);
-                _ValidationResult.IsValid = true;
+                _ValidationResult.IsValid = false;
                 return new AddStarShipFlightPayLoad(new StarShipFlight(), _ValidationResult.Messages);
             }
 

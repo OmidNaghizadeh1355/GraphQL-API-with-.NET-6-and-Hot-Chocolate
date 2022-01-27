@@ -20,5 +20,10 @@
         {
             messages.Add(errorMessage);
         }
+
+        public void EmptyErrorMessage()
+        {
+            messages = new List<string>();
+        }
     }
 }

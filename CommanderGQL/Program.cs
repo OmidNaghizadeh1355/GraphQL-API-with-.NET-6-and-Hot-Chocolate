@@ -12,6 +12,7 @@ IHostEnvironment hostEnvironment = builder.Environment;
 
 #region Configure Services
 builder.Services.AddTransient<IStarWarApiService, StarWarApiService>();
+builder.Services.AddTransient<IValidationResult, ValidationResult>();
 builder.Services.AddRazorPages();
 builder.Services.AddControllers();
 builder.Services.AddPooledDbContextFactory<AppDbContext>(opt => opt.UseSqlServer(

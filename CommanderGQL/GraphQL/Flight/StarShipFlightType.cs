@@ -1,4 +1,5 @@
-﻿using CommanderGQL.Models;
+﻿using CommanderGQL.Data;
+using CommanderGQL.Models;
 using StarWarAPI.Core;
 using StarWarAPI.Entities;
 
@@ -16,14 +17,22 @@ namespace CommanderGQL.GraphQL.Flight
                 .Description("Load from StarWar API.");
 
             descriptor
-                .Field(p => p.Crew)
-                .ResolveWith<Resolvers>(p => p.GetCrewNumber(default!))
-                .Description("Load Number od´f the Crew from StarWar API.");
+                .Field(p => p.Passengers)
+                .ResolveWith<Resolvers>(p => p.GetPassengers(default!, default!))
+                .UseDbContext<AppDbContext>()
+                .Description("Load from DB");
 
             descriptor
-                .Field(p => p.MaxPassengers)
-                .ResolveWith<Resolvers>(p => p.GetMaxPassengers(default!))
-                .Description("Load Max Passengers from StarWar API.");
+                .Field(p => p.Crews)
+                .ResolveWith<Resolvers>(p => p.GetCrew(default!, default!))
+                .UseDbContext<AppDbContext>()
+                .Description("Load from DB");
+
+            descriptor
+                .Field(p => p.IsValid)
+                .ResolveWith<Resolvers>(p => p.IsValid(default!, default!))
+                .UseDbContext<AppDbContext>()
+                .Description("Load from DB");
         }
 
         private class Resolvers
@@ -40,14 +49,30 @@ namespace CommanderGQL.GraphQL.Flight
                 return _StarWarApiService.GetStarshipById(starShipFlight.StarshipId.ToString());  
             }
 
-            public int GetCrewNumber([Parent] StarShipFlight starShipFlight)
+            public IQueryable<Passenger> GetPassengers([Parent] StarShipFlight starShipFlight, [ScopedService] AppDbContext context)
             {
-                return _StarWarApiService.GetStarshipById(starShipFlight.StarshipId.ToString()).IntCrew;
+                return context.Passengers.Where(p => p.StarShipFlightId == starShipFlight.Id);
             }
 
-            public int GetMaxPassengers([Parent] StarShipFlight starShipFlight)
+            public IQueryable<Crew> GetCrew([Parent] StarShipFlight starShipFlight, [ScopedService] AppDbContext context)
             {
-                return _StarWarApiService.GetStarshipById(starShipFlight.StarshipId.ToString()).IntPassengers;
+                return context.Crews.Where(p => p.StarShipFlightId == starShipFlight.Id);
+            }
+
+            public Boolean IsValid([Parent] StarShipFlight starShipFlight, [ScopedService] AppDbContext context)
+            {
+                var starShip = _StarWarApiService.GetStarshipById(starShipFlight.StarshipId.ToString());
+                var RegisteredCrewNo  = context.Crews.Count(p => p.StarShipFlightId == starShipFlight.StarshipId);
+                var RegistedPassengers = context.Passengers.Count(p => p.StarShipFlightId == starShipFlight.StarshipId);
+
+                if (starShip.IntCrew == RegisteredCrewNo && starShip.IntPassengers >= RegistedPassengers)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
     }
